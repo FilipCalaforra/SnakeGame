@@ -54,7 +54,7 @@ public class Main extends Application {
             }
 
 
-
+        System.out.println("kuba sucks");
 
         primaryStage.setTitle("Snake");
         primaryStage.setScene(scene);
