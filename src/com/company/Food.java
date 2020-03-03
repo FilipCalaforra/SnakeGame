@@ -1,4 +1,10 @@
 package com.company;
 
-public class Food extends Board {
+import javafx.scene.shape.Rectangle;
+
+
+public class Food extends Main {
+
+
+
 }

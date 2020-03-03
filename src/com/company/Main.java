@@ -30,10 +30,17 @@ public class Main extends Application {
         Button start = new Button("Play");
         start.setLayoutX(270);
         start.setLayoutY(40);
+        Button Insane = new Button("Insane");
+        Insane.setLayoutX(230);
+        Insane.setLayoutY(60);
+        Button Normal = new Button("Normal");
+        Normal.setLayoutX(230);
+        Normal.setLayoutY(60);
+
         Button scoreboard = new Button("Scoreboard");
         scoreboard.setLayoutX(270);
         scoreboard.setLayoutY(80);
-        StartScreen.getChildren().addAll(menu,start,scoreboard);
+        StartScreen.getChildren().addAll(menu,start,scoreboard,Insane,Normal);
         start.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -53,9 +60,11 @@ public class Main extends Application {
                 }
             }
 
+        /*private void getFruit(){
 
-        System.out.println("kuba sucks");
+        }*/
 
+        scene.getStylesheets().add("com/company/view.css");
         primaryStage.setTitle("Snake");
         primaryStage.setScene(scene);
         primaryStage.show();
