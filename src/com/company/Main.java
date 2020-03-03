@@ -52,15 +52,13 @@ public class Main extends Application {
                     pane.getChildren().add(border);
                 }
             }
-
-
         System.out.println("kuba sucks");
+
+
 
         primaryStage.setTitle("Snake");
         primaryStage.setScene(scene);
         primaryStage.show();
-
-
         }
         // write your code here
     }
