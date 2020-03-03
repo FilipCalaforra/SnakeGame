@@ -1,15 +1,21 @@
 package com.company;
 
+/**
+ * Class that contains the information about the game board
+ * and the snake
+ */
 public class BoardElement {
 
    private int row, col;
    private CellType cellType;
 
     /**
-     * Group of Constants for BoardElements(cells)
+     * Group of (FINAL) Constants for BoardElements(cells)
      */
    public enum CellType{
        EMPTY,
+       FOOD,
+       SNAKE_NODE;
 
    }
    private BoardElement(int row, int col){
