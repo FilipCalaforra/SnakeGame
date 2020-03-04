@@ -15,32 +15,40 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
+import java.util.LinkedList;
 
 public class Main extends Application {
     static int width = 20;
     static int heigth = 20;
     static int cornersize = 25;
-    static int speed = 5;
+    static int speed = 10;
+    int foodX = 0;
+    int foodY = 0;
     static boolean gameOver = false;
+    LinkedList<Cell> snake = new LinkedList<>();
+    Dir direction = Dir.LEFT;
+  //  private final int NUMBEROFSQUARES = 15;
 
 
-    private final int NUMBEROFSQUARES = 15;
 
 
 
 
-    Pane pane = new Pane();
-    Pane StartScreen = new Pane();
-    BorderPane bp = null;
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         try{
+            Pane pane = new Pane();
+            Pane StartScreen = new Pane();
             VBox root = new VBox();
             Scene scene = new Scene(root,width*cornersize,heigth*cornersize);
             Canvas canvas = new Canvas(width*cornersize,heigth*cornersize);
-            bp = new BorderPane(StartScreen);
+
+
+            BorderPane bp = new BorderPane(StartScreen);
             Scene scene2 = new Scene(bp,600,600);
             Group start_root = new Group();
             Label menu = new Label("Snake");
@@ -71,19 +79,25 @@ public class Main extends Application {
                         tick(gc);
                         return;
                     }
-                    if(now - lastTick > 100000000 / speed){
+                    if(now - lastTick > 1000000000 / speed){
                         lastTick = now;
                         tick(gc);
                     }
                 }
             }.start();
 
+            //ADDS STARTING PARTS FOR THR SNAKE
+            snake.add(new Cell(width/2,heigth/2));
+            snake.add(new Cell(width/2,heigth/2));
+            snake.add(new Cell(width/2,heigth/2));
+
+
             canvas.setOnKeyPressed(new KeyHandler());
 
             root.getChildren().add(canvas);
 
             primaryStage.setTitle("SNAKE GAME");
-            primaryStage.setScene(scene2);
+            primaryStage.setScene(scene);
             primaryStage.show();
         }catch(Exception e){
             e.printStackTrace();
@@ -129,8 +143,66 @@ public class Main extends Application {
 
          */
         }
-        private void tick(GraphicsContext gc){
+    public void tick(GraphicsContext gc){
+        if(gameOver){
+            gc.setFill(Color.RED);
+            gc.setFont(new Font("",50));
+            gc.fillText("GAME OVER",100,250);
+            return;
+        }
+        for(int i = snake.size() - 1; i>=1; i--){
+            snake.get(i).x = snake.get(i-1).x;
+            snake.get(i).y = snake.get(i-1).y;
+        }
+        switch(direction){
+            case UP:
+                snake.get(0).y--;
+                if(snake.get(0).y<0){
+                    gameOver=true;
+                }break;
+            case DOWN:
+                snake.get(0).y++;
+                if(snake.get(0).y>heigth){
+                    gameOver=true;
+                }break;
+            case LEFT:
+                snake.get(0).x--;
+                if(snake.get(0).x<0){
+                    gameOver=true;
+                }break;
+            case RIGHT:
+                snake.get(0).x++;
+                if(snake.get(0).x>width){
+                    gameOver=true;
+                }break;
+        }
+        /*
+        if(foodX == snake.get(0).x && foodY == snake.get(0).y){
+            snake.add(new Corner(-1,-1));
+
+
+
+        }
+
+         */
+        //self destroy
+        for(int i=1; i<snake.size();i++){
+            if(snake.get(0).x == snake.get(i).x && snake.get(0).y==snake.get(i).y){
+                gameOver = true;
+            }
+        }
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0,0,width*cornersize,heigth*cornersize);
+
+
+        //snake
+        for(Cell canvas : snake){
+            gc.setFill(Color.GRAY);
+            gc.fillRect(canvas.x*cornersize,canvas.y*cornersize,cornersize-1,cornersize-1);
+            gc.setFill(Color.GRAY);
+            gc.fillRect(canvas.x*cornersize,canvas.y*cornersize,cornersize-2,cornersize-2);
 
         }
     }
+}
 
