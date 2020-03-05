@@ -39,6 +39,7 @@ public class Main extends Application {
         username.setLayoutY(80);
         Food food = new Food();
         food.food();
+        System.out.print("Aa");
 
         Apple apple = new Apple();
         pane.getChildren().add(apple.goodApple);
