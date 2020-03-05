@@ -1,6 +1,7 @@
 package com.company;
 
 import javafx.scene.shape.Circle;
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.Random;
 import java.util.Timer;
@@ -10,8 +11,9 @@ public class Food  {
     int max = 14;
     int min = 0;
     int timeInS = 0;
-    int foodX;
-
+    int foodX = 0;
+    int foodY = 0;
+    int foodgkgkerogkerg = 0 ;
     public int getFoodX() {
         return foodX;
     }
@@ -27,8 +29,6 @@ public class Food  {
     public void setFoodY(int foodY) {
         this.foodY = foodY;
     }
-
-    int foodY;
     Timer appletime = new Timer();
     TimerTask appleisthere = new TimerTask() {
         @Override
@@ -51,6 +51,7 @@ public class Food  {
             apple.Apple(posX*40,posY*40);
         }
     }
+
 
 }
 
