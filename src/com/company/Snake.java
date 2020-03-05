@@ -7,9 +7,11 @@ public class Snake {
 
     public Snake(){
         //Initiliaze first blocks of snake body
+
         snakeList.add(new Cell(Game.width/2,Game.heigth/2));
         snakeList.add(new Cell(Game.width/2,Game.heigth/2));
         snakeList.add(new Cell(Game.width/2,Game.heigth/2));
+
     }
 
     public LinkedList<Cell> getSnakeList(){return snakeList;}
