@@ -103,7 +103,7 @@ public class Game extends Application {
             food.setFoodX(rand.nextInt(width));
             food.setFoodY(rand.nextInt(heigth));
 
-
+            System.out.println(food);
             for(Cell canvas : snake.getSnakeList()){
                 if(canvas.x == food.getFoodX() && canvas.y==food.getFoodY()){
                     continue start;
