@@ -1,6 +1,6 @@
 package com.company;
 
-public class Cell extends Board{
+public class Cell {
     int x;
     int y;
     public Cell(int x, int y){
