@@ -40,7 +40,7 @@ public class Game extends Application {
     //Initialize Objects
 
     VBox root = new VBox();
-    Apple apple = new Apple();
+
 
 
 
@@ -96,15 +96,16 @@ public class Game extends Application {
     public  void generateFood(){
 
         start: while(true){
+        /*
             FoodX = rand.nextInt();
             FoodY = rand.nextInt();
-            /*
+            */
             food.setFoodX(rand.nextInt(width));
             food.setFoodY(rand.nextInt(heigth));
 
-             */
+
             for(Cell canvas : snake.getSnakeList()){
-                if(canvas.x == FoodX && canvas.y==FoodY){
+                if(canvas.x == food.getFoodX() && canvas.y==food.getFoodY()){
                     continue start;
                 }
             }

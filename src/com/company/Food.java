@@ -13,22 +13,14 @@ public class Food  {
     int timeInS = 0;
     int foodX = 0;
     int foodY = 0;
-    int foodgkgkerogkerg = 0 ;
-    public int getFoodX() {
-        return foodX;
-    }
 
-    public void setFoodX(int foodX) {
-        this.foodX = foodX;
-    }
+    public int getFoodX() { return foodX; }
 
-    public int getFoodY() {
-        return foodY;
-    }
+    public void setFoodX(int foodX) { this.foodX = foodX; }
 
-    public void setFoodY(int foodY) {
-        this.foodY = foodY;
-    }
+    public int getFoodY() { return foodY; }
+
+    public void setFoodY(int foodY) { this.foodY = foodY; }
     Timer appletime = new Timer();
     TimerTask appleisthere = new TimerTask() {
         @Override
