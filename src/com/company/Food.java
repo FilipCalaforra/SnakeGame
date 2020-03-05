@@ -10,6 +10,25 @@ public class Food  {
     int max = 14;
     int min = 0;
     int timeInS = 0;
+    int foodX;
+
+    public int getFoodX() {
+        return foodX;
+    }
+
+    public void setFoodX(int foodX) {
+        this.foodX = foodX;
+    }
+
+    public int getFoodY() {
+        return foodY;
+    }
+
+    public void setFoodY(int foodY) {
+        this.foodY = foodY;
+    }
+
+    int foodY;
     Timer appletime = new Timer();
     TimerTask appleisthere = new TimerTask() {
         @Override
@@ -30,9 +49,8 @@ public class Food  {
 
             timeInS=0;
             apple.Apple(posX*40,posY*40);
-
-
         }
     }
+
 }
 
