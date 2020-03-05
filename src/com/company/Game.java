@@ -85,7 +85,6 @@ public class Game extends Application {
                 }
             });
 
-//, apple.goodApple
             root.getChildren().add(canvas);
             primaryStage.setTitle("Snake");
             primaryStage.setScene(scene);
@@ -118,7 +117,7 @@ public class Game extends Application {
     public void tick(GraphicsContext gc){
 
         if(gameOver){
-            gc.setFill(Color.RED);
+            gc.setFill(Color.MEDIUMBLUE);
             gc.setFont(new Font("",50));
             gc.fillText("GAME OVER",100,250);
             return;
@@ -162,6 +161,8 @@ public class Game extends Application {
 
             }
         }
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0,0,width*cell_size,heigth*cell_size);
 
         //random foodcolor
         Color fc = Color.WHITE;
