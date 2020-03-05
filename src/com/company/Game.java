@@ -2,57 +2,47 @@ package com.company;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
+import java.util.Timer;
 import java.util.Random;
+import java.util.TimerTask;
 
+/**
+ * @author Casper Sejrup, Filip Calaforra, Kuba Nowak
+ *
+ * This is a program for a snake game, very simple made indeed.
+ */
 public class Game extends Application {
     public static int width = 20;
     public static int heigth = 20;
     public static int cell_size = 25;
-    public static int speed = 10;
+    public static int speed = 5;
     static boolean gameOver = false;
     static int foodcolor = 0;
-    static int FoodX = 0;
-    static int FoodY = 0;
 
     Dir direction = Dir.LEFT;
+
+    //Initialize Objects
+    VBox root = new VBox();
     Food food = new Food();
     Random rand = new Random();
     Snake snake = new Snake();
-    //Initialize Objects
-
-    VBox root = new VBox();
-
-
-
-
+    Timer timer = new Timer();
+    Scene scene = new Scene(root,width*cell_size,heigth*cell_size);
+    Canvas canvas = new Canvas(width*cell_size,heigth*cell_size);
+    GraphicsContext gc = canvas.getGraphicsContext2D();
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
             generateFood();
-            Scene scene = new Scene(root,width*cell_size,heigth*cell_size);
-            Canvas canvas = new Canvas(width*cell_size,heigth*cell_size);
-            GraphicsContext gc = canvas.getGraphicsContext2D();
-
-
             new AnimationTimer(){
                 long lastTick = 0;
                 public void handle(long now){
@@ -67,7 +57,6 @@ public class Game extends Application {
                     }
                 }
             }.start();
-
 
             //EVENT FOR CONTROLLING THE SNAKE WITH W-A-S-D KEYS INPUT
             scene.addEventFilter(KeyEvent.KEY_PRESSED, key ->{
@@ -84,26 +73,24 @@ public class Game extends Application {
                     direction = Dir.RIGHT;
                 }
             });
-
-            root.getChildren().add(canvas);
-            primaryStage.setTitle("Snake");
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            initBoard(primaryStage);
         }catch(Exception e){
             e.printStackTrace();
         }
     }
-    public  void generateFood(){
+
+  
+    private void initBoard(Stage primaryStage){
+        root.getChildren().add(canvas);
+        primaryStage.setTitle("Snake");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    public void generateFood(){
 
         start: while(true){
-        /*
-            FoodX = rand.nextInt();
-            FoodY = rand.nextInt();
-            */
             food.setFoodX(rand.nextInt(width));
             food.setFoodY(rand.nextInt(heigth));
-
-            System.out.println(food);
             for(Cell canvas : snake.getSnakeList()){
                 if(canvas.x == food.getFoodX() && canvas.y==food.getFoodY()){
                     continue start;
@@ -111,12 +98,11 @@ public class Game extends Application {
             }
             foodcolor = rand.nextInt(5);
             speed++;
+            System.out.println(speed);
             break;
-
         }
     }
     public void tick(GraphicsContext gc){
-
         if(gameOver){
             gc.setFill(Color.MEDIUMBLUE);
             gc.setFont(new Font("",50));
@@ -149,7 +135,7 @@ public class Game extends Application {
                     gameOver=true;
                 }break;
         }
-
+        //SNAKE EATING FOOD THEN RECALLING GENEREATEFOOD()
         if(food.getFoodX() == snake.getSnakeList().get(0).x && food.getFoodY() == snake.getSnakeList().get(0).y ){
             snake.getSnakeList().add(new Cell(-1,-1));
             generateFood();
@@ -159,11 +145,22 @@ public class Game extends Application {
         for(int i=1; i<snake.getSnakeList().size();i++){
             if(snake.getSnakeList().get(0).x == snake.getSnakeList().get(i).x && snake.getSnakeList().get(0).y==snake.getSnakeList().get(i).y){
                 gameOver = true;
-
             }
         }
+        //BlackGround
         gc.setFill(Color.BLACK);
         gc.fillRect(0,0,width*cell_size,heigth*cell_size);
+
+        //score
+        gc.setFill(Color.CYAN);
+        gc.setFont(new Font("arial",20));
+        gc.fillText("Score: " +(speed-6),10,30);
+       //Length of Snake
+
+        gc.setFill(Color.CYAN);
+        gc.setFont(new Font("arial",10));
+        gc.fillText("Length: " + snake.getSnakeList().size(),50, 40);
+
 
         //random foodcolor
         Color fc = Color.WHITE;
@@ -179,12 +176,14 @@ public class Game extends Application {
                 break;
             case 4: fc = Color.ORANGE;
                 break;
+            case 5: fc = Color.DARKCYAN;
+                break;
         }
         gc.setFill(fc);
         gc.fillOval(food.getFoodX()*cell_size,food.getFoodY()*cell_size,cell_size,cell_size);
+
         //snake
         for(Cell canvas : snake.getSnakeList()){
-
             gc.setFill(Color.DARKSEAGREEN);
             gc.fillRect(canvas.x*cell_size,canvas.y*cell_size,cell_size-1,cell_size-1);
             gc.setFill(Color.GREEN);
