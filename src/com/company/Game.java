@@ -147,7 +147,7 @@ public class Game extends Application {
                 gameOver = true;
             }
         }
-        //BlackGround
+        //BlackGround WEFAWEG
         gc.setFill(Color.BLACK);
         gc.fillRect(0,0,width*cell_size,heigth*cell_size);
 
