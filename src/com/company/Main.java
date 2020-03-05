@@ -37,6 +37,11 @@ public class Main extends Application {
         TextField username =  new TextField();
         username.setLayoutX(270);
         username.setLayoutY(80);
+        Food food = new Food();
+        food.food();
+
+        Apple apple = new Apple();
+        pane.getChildren().add(apple.goodApple);
         StartScreen.getChildren().addAll(menu,start,scoreboard,username);
         start.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
